@@ -1,0 +1,13 @@
+[user]
+	name = Anna Do
+	email = annado@gmail.com
+[core]
+	editor = emacs
+[credential]
+	helper = osxkeychain
+[alias]
+	st = status
+	co = checkout
+
+[color]
+	ui = auto
