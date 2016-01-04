@@ -3,6 +3,7 @@ export CLICOLOR=1
 
 # aliases
 alias psx="ps auxw | grep $1"
+alias gst='git status '
 
 # display current gh branch
 function parse_gitbranch {
