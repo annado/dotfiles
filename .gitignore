@@ -1,0 +1,8 @@
+## git config --global core.excludesfile .gitignore
+
+# OS generated
+.DS_Store
+.DS_Store?
+
+# emacs generated
+*.*~
