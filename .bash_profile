@@ -9,7 +9,10 @@ alias gst='git status '
 function parse_gitbranch {
     local b="$(git symbolic-ref HEAD 2>/dev/null)";
     if [ -n "$b" ]; then
-        printf "%s" "${b##refs/heads/}";
+        printf "%.30s" "${b##refs/heads/}";
+        if [ "${#b}" -ge 30 ]
+            then printf "...";
+        fi
     fi
 }
 
