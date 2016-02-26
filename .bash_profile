@@ -11,7 +11,7 @@ function _git_prompt() {
         if [[ "$git_status" =~ nothing\ to\ commit ]]; then
             local gitcolour="$CYAN"
         elif [[ "$git_status" =~ nothing\ added\ to\ commit\ but\ untracked\ files\ present ]]; then
-            local gitcolour="untracked:$YELLOW"
+            local gitcolour="$YELLOW"
         else
             local gitcolour="$GREEN"
         fi
