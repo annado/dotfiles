@@ -9,11 +9,11 @@ function _git_prompt() {
     local git_status="`git status -unormal 2>&1`"
     if ! [[ "$git_status" =~ Not\ a\ git\ repo ]]; then
         if [[ "$git_status" =~ nothing\ to\ commit ]]; then
-            local gitcolour="$GREEN"
+            local gitcolour="$CYAN"
         elif [[ "$git_status" =~ nothing\ added\ to\ commit\ but\ untracked\ files\ present ]]; then
             local gitcolour="untracked:$YELLOW"
         else
-            local gitcolour="$CYAN"
+            local gitcolour="$GREEN"
         fi
         if [[ "$git_status" =~ On\ branch\ ([^[:space:]]+) ]]; then
             branch=${BASH_REMATCH[1]}
@@ -31,6 +31,7 @@ function _git_prompt() {
 
 # define colors
 LBLUE='\[\e[0;36m\]'
+BLUE='\[\e[0;34m\]'
 PURPLE='\[\e[0;35m\]'
 GREEN='\[\e[0;32m\]'
 ORANGE='\[\e[0;33m\]'
@@ -43,7 +44,7 @@ CYAN="\[\e[0;96m\]"
 #PS1="\h:$PURPLE\$(parse_gitbranch) $BLACK\W$ "
 
 function _prompt_command() {
-    PS1="$PINK\u $PURPLE\w $ORANGE`_git_prompt`$PINK>> $BLACK"
+    PS1="$PINK\u $BLUE\w `_git_prompt`$PINK>> $BLACK"
 }
 
 export PROMPT_COMMAND=_prompt_command
