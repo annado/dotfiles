@@ -44,7 +44,7 @@ CYAN="\[\e[0;96m\]"
 #PS1="\h:$PURPLE\$(parse_gitbranch) $BLACK\W$ "
 
 function _prompt_command() {
-    PS1="$PINK\u $BLUE\w `_git_prompt`$PINK>> $BLACK"
+    PS1="$PINK\u $PURPLE\w `_git_prompt`$PINK>> $BLACK"
 }
 
 export PROMPT_COMMAND=_prompt_command
