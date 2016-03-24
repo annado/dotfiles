@@ -1,4 +1,4 @@
-## git config --global core.excludesfile ~/src/.gitignore
+## git config --global core.excludesfile ~/src/dotfiles/.gitignore
 
 # OS generated
 .DS_Store

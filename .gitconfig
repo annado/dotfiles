@@ -3,11 +3,13 @@
 	email = annado@gmail.com
 [core]
 	editor = emacs
+	excludesfile = ~/src/dotfiles/.gitignore
 [credential]
 	helper = osxkeychain
 [alias]
 	st = status
 	co = checkout
+  undo = reset --soft HEAD~
 
 [color]
 	ui = auto
@@ -24,3 +26,5 @@
   added = green
   changed = red
   untracked = cyan
+[push]
+  default = simple
