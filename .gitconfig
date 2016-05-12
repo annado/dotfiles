@@ -9,7 +9,10 @@
 [alias]
 	st = status
 	co = checkout
+  br = branch
   undo = reset --soft HEAD~
+  patch = add --patch
+  merged = branch --merged
 
 [color]
 	ui = auto
