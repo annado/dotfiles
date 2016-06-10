@@ -5,6 +5,10 @@ export CLICOLOR=1
 alias psx="ps auxw | grep $1"
 alias gst='git status '
 
+if [ -f ~/.bash_aliases ]; then
+  source ~/.bash_aliases
+fi
+
 function _git_prompt() {
     local git_status="`git status -unormal 2>&1`"
     if ! [[ "$git_status" =~ Not\ a\ git\ repo ]]; then
@@ -39,12 +43,7 @@ YELLOW='\e[0;37m\]'
 PINK='\[\e[0;91m\]'
 BLACK="\[\e[0;38m\]"
 CYAN="\[\e[0;96m\]"
-
-# set command prompt
-#PS1="\h:$PURPLE\$(parse_gitbranch) $BLACK\W$ "
-
 function _prompt_command() {
     PS1="$PINK\u $PURPLE\w `_git_prompt`$PINK>> $BLACK"
 }
-
 export PROMPT_COMMAND=_prompt_command
