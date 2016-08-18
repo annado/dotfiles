@@ -13,6 +13,7 @@
   undo = reset --soft HEAD~
   patch = add --patch
   merged = branch --merged
+  prune = git remote prune origin
 
 [color]
 	ui = auto
