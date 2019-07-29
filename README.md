@@ -1,6 +1,7 @@
 # Anna's dotfiles
 
-## Install
-* [Atom](http://atom.io)
-* [nvm](https://github.com/creationix/nvm)
-  * `nvm install node`
+## Git aliases
+* `git config --global alias.co checkout`
+* `git config --global alias.br branch`
+* `git config --global alias.st status`
+* `git config --global alias.patch "add --patch"`
