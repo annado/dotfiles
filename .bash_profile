@@ -1,6 +1,8 @@
 export DISPLAY=:0.0
 export CLICOLOR=1
 
+eval "$(pyenv init -)"
+
 # aliases
 alias psx="ps auxw | grep $1"
 alias gst='git status '
@@ -44,6 +46,9 @@ PINK='\[\e[0;91m\]'
 BLACK="\[\e[0;38m\]"
 CYAN="\[\e[0;96m\]"
 function _prompt_command() {
-    PS1="$PINK\u $PURPLE\w `_git_prompt`$PINK>> $BLACK"
+    PS1="$PINK\u $PURPLE\w `_git_prompt`\n$PINK>> $BLACK"
 }
 export PROMPT_COMMAND=_prompt_command
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -1,8 +1,8 @@
 [user]
 	name = Anna Do
-	email = annado@gmail.com
+	email = anna@aplusd.co
 [core]
-	editor = emacs
+	editor = vi
 	excludesfile = ~/src/dotfiles/.gitignore
 [credential]
 	helper = osxkeychain
@@ -14,7 +14,8 @@
   patch = add --patch
   merged = branch --merged
   prune = git remote prune origin
-
+[pull]
+	rebase = true
 [color]
 	ui = auto
 [color "branch"]
