@@ -7,34 +7,6 @@ eval "$(pyenv init -)"
 alias psx="ps auxw | grep $1"
 alias gst='git status '
 
-if [ -f ~/.bash_aliases ]; then
-  source ~/.bash_aliases
-fi
-
-function _git_prompt() {
-    local git_status="`git status -unormal 2>&1`"
-    if ! [[ "$git_status" =~ Not\ a\ git\ repo ]]; then
-        if [[ "$git_status" =~ nothing\ to\ commit ]]; then
-            local gitcolour="$CYAN"
-        elif [[ "$git_status" =~ nothing\ added\ to\ commit\ but\ untracked\ files\ present ]]; then
-            local gitcolour="$YELLOW"
-        else
-            local gitcolour="$GREEN"
-        fi
-        if [[ "$git_status" =~ On\ branch\ ([^[:space:]]+) ]]; then
-            branch=${BASH_REMATCH[1]}
-            test "$branch" != branch=' '
-        else
-            # Detached HEAD.  (branch=HEAD is a faster alternative.)
-            branch="(`git describe --all --contains --abbrev=4 HEAD 2> /dev/null ||
-                echo HEAD`)"
-        fi
-	if [ -n "$branch" ]; then
-	    echo "$gitcolour $branch \n";
-	fi
-    fi
-}
-
 # define colors
 LBLUE='\[\e[0;36m\]'
 BLUE='\[\e[0;34m\]'
@@ -45,10 +17,38 @@ YELLOW='\e[0;37m\]'
 PINK='\[\e[0;91m\]'
 BLACK="\[\e[0;38m\]"
 CYAN="\[\e[0;96m\]"
-function _prompt_command() {
-    PS1="$PINK\u $PURPLE\w `_git_prompt`\n$PINK>> $BLACK"
+
+
+ZSH_THEME_GIT_PROMPT_PREFIX="(%{$fg[green]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[blue]%})%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%}"
+
+# get the name of the branch we are on
+function git_prompt_info() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
-export PROMPT_COMMAND=_prompt_command
+
+# Checks if working tree is dirty
+parse_git_dirty() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null)
+  if [[ -n $(git status -s --ignore-submodules=dirty 2> /dev/null) ]]; then
+    echo "$ZSH_THEME_GIT_PROMPT_DIRTY${ref#refs/heads/}"
+  else
+    echo "$ZSH_THEME_GIT_PROMPT_CLEAN${ref#refs/heads/}"
+  fi
+}
+
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+setopt PROMPT_SUBST
+PROMPT='%9c%{%F{magenta}%}$(parse_git_branch)%{%F{none}%} $ '
+
+# PROMPT='%{$fg_bold[red]%}%m%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
+# RPROMPT='%{$reset_color%} %{$fg[yellow]%}$(git_prompt_info) %{$reset_color%}'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
